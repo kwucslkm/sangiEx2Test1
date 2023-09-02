@@ -12,8 +12,8 @@
 	<div id="buttonBox">
 		<button onclick="location.href = 'findMemberForm.jsp'">조회</button>
 		<button onclick="location.href = 'saveMemberForm.jsp'">사원등록</button>
-		<button onclick="">정보변경</button>
-		<button onclick="">퇴사처리</button>
+		<button onclick="location.href = 'updateMemberForm.jsp'">정보수정</button>
+		<button onclick="location.href = 'deleteMemberForm.jsp'">퇴사</button>
 		<button onclick="window.close()">종료</button>
 	</div>
 	

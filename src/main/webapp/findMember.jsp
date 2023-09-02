@@ -39,9 +39,8 @@
 				String searchType = request.getParameter("searchType");
 				String idValue = request.getParameter("idValue");
 				String deptValue = request.getParameter("deptValue");
-				System.out.println("jsp searchType + idValue + deptValue "+" "+searchType+" "+idValue+" "+deptValue);
+				//System.out.println("jsp searchType + idValue + deptValue "+" "+searchType+" "+idValue+" "+deptValue);
 				MemberDAO memberDAO = new MemberDAO();
-			
 				List<MemberDTO> memberList = memberDAO.findMember(searchType, idValue, deptValue);
 				for (MemberDTO m : memberList){
 			%>
@@ -56,11 +55,8 @@
 			<%
 				}
 			%>
-			
-		
-		
-		
 		</table>
+		<button onclick="location.href='findMemberForm.jsp'">확인 </button>
 	
 	</div>
 	

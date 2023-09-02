@@ -21,8 +21,53 @@ public class MemberDAO {
 		// 컴파일 시점이 아니라 런타임 시점에 로딩을 할 수 있게 해줌.(DI랑 비슷한 역할)
 		Class.forName("oracle.jdbc.OracleDriver"); // 사용할 DB 드라이버 로드
 		// 접속할 DB 주소, 사용자 계정, 비밀번호
-		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xe", "c##user1", "1234");
+		Connection con = DriverManager.getConnection("jdbc:oracle:thin:@//localhost:1521/xe", "user1", "1234");
 		return con;
+	}
+	
+	public int deleteMember(String id, String name) throws Exception{
+		con=getConnection();
+		String sql = "delete from personnel where id=? and name=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		pstmt.setString(2, name);
+		
+		int result = pstmt.executeUpdate();
+		System.out.println("DAO 딴 결과"+result);
+		return result;
+		
+		
+	}
+	
+	public int updateMember(String id, String name, String dept, String position, String duty, String phone) throws Exception{
+		con = getConnection();
+		String sql ="update personnel set name =?, dept =?, position =?,duty=?, phone=? where id=?";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, name);
+		pstmt.setString(2, dept);
+		pstmt.setString(3, position);
+		pstmt.setString(4, duty);
+		pstmt.setString(5, phone);
+		pstmt.setString(6, id);
+		
+//		int result =  pstmt.executeUpdate();
+		
+		return pstmt.executeUpdate();
+	}
+	public int saveMember(String id, String name, String dept, String position, String duty, String phone) throws Exception{
+		con = getConnection();
+		String sql ="insert into personnel values(?,?,?,?,?,?)";
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, id);
+		pstmt.setString(2, name);
+		pstmt.setString(3, dept);
+		pstmt.setString(4, position);
+		pstmt.setString(5, duty);
+		pstmt.setString(6, phone);
+		
+//		int result =  pstmt.executeUpdate();
+		
+		return pstmt.executeUpdate();
 	}
 	
 	public List<MemberDTO> findMember(String searchType, String idValue, String deptValue) throws Exception{
@@ -35,6 +80,10 @@ public class MemberDAO {
 			System.out.println("id로 찾겠네");
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, idValue);
+		}else if(searchType.equals("all")){
+			sql = "select * from personnel";
+			System.out.println("다 가져와");
+			pstmt = con.prepareStatement(sql);
 		}else {
 			sql = "select * from personnel where dept=?";
 			System.out.println("dept로 찾겠네");

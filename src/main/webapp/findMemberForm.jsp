@@ -17,6 +17,7 @@
 	<h4>인사관리 조회</h4>
 	<div id="findMemberForm">
 		<form action="findMember.jsp" name = "findMemberForm">
+			<input type="radio" name="searchType" value="all">전체조회<br>
 			<input type="radio" name="searchType" value="id">
 			사원번호로 조회 <input type="text" name="idValue"><br>
 			<input type="radio" name="searchType" value="dept">
